@@ -1,3 +1,13 @@
+// import './main.js'
+import bundlerPic from '../bundler.png'
+import '../css/style.css'
+import '../scss/style.scss'
+import './timer.js'
+import './datecalc.js'
+
+import xor from 'lodash/xor'
+console.log(xor([2, 1], [2, 3]));
+console.log(bundlerPic);
 import {allElement, clear, seter} from './queryers.js';
 
 const tabLinks = allElement('.list')
