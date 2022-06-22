@@ -1,4 +1,4 @@
-import { Howl  } from './plugins/howler.js';
+import { Howl } from 'howler';
 
 const hourElement = document.querySelector('.hour')
 const minuteElement = document.querySelector('.minute')
@@ -14,6 +14,7 @@ const results = document.querySelector('.results')
 startButton.addEventListener('click', () => {
     clearInterval(interval)
     interval = setInterval(startTimer, 10)
+    sfx.start.play()
 })
 fixingButton.addEventListener('click', () => {
     const block = document.createElement('div')
@@ -21,9 +22,11 @@ fixingButton.addEventListener('click', () => {
     block.classList.add('result__info')
     block.innerText = `Result ${counter}: ${hour>9 ? hour : '0' + hour}:${minute>9 ? minute : '0' + minute}:${second>9 ? second : '0' + second}:${milliseconds>9 ? milliseconds : '0' + milliseconds}`
     results.append(block)
+    activeSound()
 })
 pauseButton.addEventListener('click', () => {
     clearInterval(interval)
+    sfx.pause.play()
 })
 stopButton.addEventListener('click', () =>  {
     clearInterval(interval)
@@ -31,6 +34,7 @@ stopButton.addEventListener('click', () =>  {
     counter = 0
     results.textContent = ''
     disabledData()
+    sfx.stop.play()
 })
 
 let hour = 0,
@@ -50,6 +54,9 @@ function startTimer(){
     }
     if (milliseconds > 9){
         millisecondsElement.innerText = milliseconds
+    }
+    if (milliseconds === 99) {
+        sfx.second.play()
     }
     if(milliseconds > 99) {
         second++
@@ -99,8 +106,9 @@ function startTimer(){
         clearData()
         alert('Больше суток не работаем')
     }
-    activeSound(second)
     fixingButton.disabled = false
+    pauseButton.disabled = false
+    stopButton.disabled = false
 }
 
 function clearData() {
@@ -115,21 +123,47 @@ function clearData() {
 
 }
 
-function activeSound(el) {
-    if (el % 10 === 0) {
-        console.log(el);
+function activeSound() {
+    if (fixingButton.disabled === false) {
         let sound = new Howl({
-            src: ['sound.mp3']
+            src: ['https://assets.codepen.io/21542/howler-push.mp3'],
+            volume: 0.2
         });
-
         sound.play();
     }
+}
+const sfx = {
+    start: new Howl({
+        src: ['https://zvukogram.com/index.php?r=site/download&id=77971'],
+        html5: true,
+        format: ['mp3'],
+        volume: 0.5
+    }),
+    pause: new Howl({
+        src: ['https://zvukogram.com/index.php?r=site/download&id=77968'],
+        html5: true,
+        format: ['mp3'],
+        volume: 0.5
+    }),
+    stop: new Howl({
+        src: ['https://zvukogram.com/index.php?r=site/download&id=35726'],
+        html5: true,
+        format: ['mp3'],
+        volume: 0.2
+    }),
+    second: new Howl({
+        src: ['https://zvukogram.com/index.php?r=site/download&id=77979'],
+        html5: true,
+        format: ['mp3'],
+        volume: 0.2
+    })
 }
 
 function disabledData() {
     if (disabled) {
         fixingButton.disabled = true
+        pauseButton.disabled = true
+        stopButton.disabled = true
     }
 }
 disabledData()
-activeSound(second)
