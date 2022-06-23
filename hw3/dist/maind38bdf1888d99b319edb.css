@@ -1,0 +1,59 @@
+/*!**************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/scss/style.scss ***!
+  \**************************************************************************************************************/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #c9e7db;
+  text-align: center;
+}
+
+.title {
+  color: red;
+}
+
+.gallery {
+  margin: 25px 0 100px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+}
+.gallery-item {
+  background-color: #fff;
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  vertical-align: middle;
+  content: "";
+}
+.gallery-item span {
+  border-top: 1px solid black;
+  height: 20px;
+  display: block;
+  width: 300px;
+  color: black;
+  background-color: #fff;
+}
+.gallery-item__resource {
+  align-items: center;
+  margin-top: 25px;
+}
+.gallery-item__image {
+  background-color: #86bb36;
+  height: 250px;
+  width: 300px;
+  object-fit: cover;
+}
+.gallery-item__audio {
+  object-fit: cover;
+  height: 250px;
+  background-color: #414140;
+}
+.gallery-item__video {
+  height: 250px;
+  width: 300px;
+}
